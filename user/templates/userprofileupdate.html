@@ -1,0 +1,51 @@
+{% extends 'homebase.html' %}
+{% block title %} {{ setting.Title }} {% endblock %}
+{% block description %} {{ setting.keywords }} {% endblock %}
+{% block keywords %} {{ setting.Description }} {% endblock %}
+
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+{% block body %}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="">Home</a></li>
+      <li class="active">User Profile Information</li>
+    </ul>
+  </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-md-3">
+        {% include 'userpanel.html' %}
+      </div>
+         <div class="col-md-9">
+            <div class="billing-details">
+               <div class="section-title">
+                  <h4 class="title">User Profile Update</h4>
+               </div>
+               <form  enctype="multipart/form-data" method="POST">
+                 {% csrf_token %}
+                 {{user_form.as_p}}
+                 {{profile_form.as_p}}
+                <button class="primary-btn" type="submit" name="button">Update</button>
+               </form>
+            </div>
+         </div>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /section -->
+
+ {% endblock %}
+{% block foot %} {% include 'footer.html' %} {% endblock %}

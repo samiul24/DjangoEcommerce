@@ -1,0 +1,49 @@
+{% extends 'homebase.html' %}
+{% block title %} {{ setting.Title }} {% endblock %}
+{% block description %} {{ setting.keywords }} {% endblock %}
+{% block keywords %} {{ setting.Description }} {% endblock %}
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+{% block head %}
+<script>
+$( function() {
+  $( "#accordion" ).accordion();
+} );
+</script>
+{% endblock %}
+{% block body %}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="">Home</a></li>
+      <li class="active">FAQ</li>
+    </ul>
+  </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+
+
+<div id="accordion">
+    {% for i in faq%}
+  <h3>{{i.Question}}</h3>
+  <div>
+    <p>
+  {{i.Answer|safe}}
+    </p>
+  </div>
+  {% endfor %}
+  </div>
+
+  </div>
+  <!-- /container -->
+</div>
+<!-- /section -->
+
+ {% endblock %}
+{% block foot %} {% include 'footer.html' %} {% endblock %}

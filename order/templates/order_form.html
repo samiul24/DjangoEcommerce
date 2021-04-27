@@ -1,0 +1,148 @@
+{% extends 'homebase.html' %}
+{% block title %} Order  {% endblock %}
+{% block description %} {{ setting.keywords }} {% endblock %}
+{% block keywords %} {{ setting.Description }} {% endblock %}
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+{% block body %}
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+   <div class="container">
+      <ul class="breadcrumb">
+         <li><a href="/">Home</a></li>
+         <li class="active">Order Place</li>
+      </ul>
+   </div>
+</div>
+<!-- /BREADCRUMB -->
+<!-- section -->
+<div class="section">
+   <!-- container -->
+   <div class="container">
+      <!-- row -->
+      <div class="row">
+         <Form action="/order/orderproduct/" method="POST">
+            {% csrf_token %}
+            <div class="col-md-6">
+               <div class="billing-details">
+                  <div class="section-title">
+                     <h4 class="title">Shipping Details</h4>
+                  </div>
+                  <p><label for="id_first_name">First name:</label>
+                     <input type="text" name="First_name"  value="{{ user.first_name }}" class="input" maxlength="20" required id="id_first_name">
+                  </p>
+                  <p><label for="id_last_name">Last name:</label>
+                     <input type="text" name="Last_name"  value="{{ user.last_name }}" class="input" maxlength="20" required id="id_last_name">
+                  </p>
+                  <p><label for="id_address">Address:</label>
+                     <input type="text" name="Address" value="{{ profile.Address }}" class="input" maxlength="150" id="id_address">
+                  </p>
+                  <p><label for="id_phone">Phone:</label>
+                     <input type="text" name="Phone"  value="{{ profile.Phone }}"  class="input" maxlength="20" id="id_phone">
+                  </p>
+                  <p>
+                     <label for="id_city">City:</label>
+                     <select name="City" class="input" id="id_city">
+                        <option value="{{ profile.city }}" selected>{{ profile.City }}</option>
+                        <option value="Dhaka">Dhaka</option>
+                        <option value="Rajshahi">Rajshahi</option>
+                        <option value="Bogura">Bogura</option>
+                        <option value="Sirajgonj">Sirajgonj</option>
+                        <option value="Khula">Khula</option>
+                        <option value="Rajbari">Rajbari</option>
+                     </select>
+                  </p>
+                  <p><label for="id_first_name">Country:</label>
+                     <input type="text" name="Country" class="input" id="id_country" value="{{ profile.Country }}">
+                  </p>
+                  <div class="pull-right">
+                     <button  type="submit" class="primary-btn">Complete Order</button>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="shiping-methods">
+                  <div class="section-title">
+                     <h4 class="title">Payment Information</h4>
+                  </div>
+                  <p><label for="id_first_name">Total: </label>
+                     <input type="text" name="total" class="input" readonly value="${{ total }}">
+                  </p>
+                  <p><label for="id_first_name">Credit Card Holder</label>
+                     <input type="text" name="holder" class="input"  value="">
+                  </p>
+                  <p><label for="id_first_name">Credit Card Number</label>
+                     <input type="text" name="number" class="input"  value="">
+                  </p>
+                  <p><label for="id_first_name">Credit Exp Date/Year</label>
+                     <input type="text" name="ecpdate" class="input"  placeholder="mm/yy">
+                  </p>
+                  <p><label for="id_first_name">Security Number</label>
+                     <input type="text" name="secnumber" class="input"  value="">
+                  </p>
+               </div>
+            </div>
+         </Form>
+         <div class="col-md-12">
+            <div class="order-summary clearfix">
+               <div class="section-title">
+                  <h3 class="title">Order Review</h3>
+               </div>
+               <table class="shopping-cart-table table">
+                  <thead>
+                     <tr>
+                        <th>Product</th>
+                        <th></th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-right"></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% for sc in shopcart %}
+                     <tr>
+                        <td class="thumb"><img src="{{sc.Product.Image.url}}" alt=""></td>
+                        <td class="details">
+                           <a href="/product/{{sc.Product_id}}/{{sc.Product.Slug}} ">{{sc.Product.Title}}</a>
+                           <ul>
+                              <li><span>Size: XL</span></li>
+                              <li><span>Color: Camelot</span></li>
+                           </ul>
+                        </td>
+                        <td class="price text-center"><strong>${{sc.price}}.50</strong><br></td>
+                        <td class="qty text-center"><input class="input" type="number" value="{{sc.Quantity}}"></td>
+                        <td class="total text-center"><strong class="primary-color">${{sc.amount}}</strong></td>
+                        <td class="text-right"><a href="/order/deleteformshopcart/{{sc.id}}"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></a></td>
+                     </tr>
+                     {% endfor %}
+                  </tbody>
+                  <tfoot>
+                     <tr>
+                        <th class="empty" colspan="3"></th>
+                        <th>SUBTOTAL</th>
+                        <th colspan="2" class="sub-total">${{total}}</th>
+                     </tr>
+                     <tr>
+                        <th class="empty" colspan="3"></th>
+                        <th>SHIPING</th>
+                        <td colspan="2">Free Shipping</td>
+                     </tr>
+                     <tr>
+                        <th class="empty" colspan="3"></th>
+                        <th>TOTAL</th>
+                        <th colspan="2" class="total">${{total}}</th>
+                     </tr>
+                  </tfoot>
+               </table>
+               <div class="pull-right">
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- /row -->
+   </div>
+   <!-- /container -->
+</div>
+<!-- /section -->
+{% endblock %}
+{% block foot %} {% include 'footer.html' %} {% endblock %}

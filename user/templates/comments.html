@@ -1,0 +1,71 @@
+{% extends 'homebase.html' %}
+{% block title %} Comments List {% endblock %}
+{% block description %} {{ setting.keywords }} {% endblock %}
+{% block keywords %} {{ setting.Description }} {% endblock %}
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+{% block body %}
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+   <div class="container">
+      <ul class="breadcrumb">
+         <li><a href="/">Home</a></li>
+         <li class="active">Comments </li>
+      </ul>
+   </div>
+</div>
+<!-- /BREADCRUMB -->
+<!-- section -->
+<div class="section">
+   <!-- container -->
+   <div class="container">
+      <!-- row -->
+      <div class="row">
+         <div class="col-md-3">
+            {% include 'userpanel.html' %}
+         </div>
+         <div class="col-md-9">
+            <div class="order-summary clearfix">
+               <div class="section-title">
+                  <h4 class="title">Comments List</h4>
+               </div>
+               <table class="shopping-cart-table table">
+                 <thead>
+                   <tr>
+                     <th>Product</th>
+                     <th></th>
+                     <th class="text-center">Comments</th>
+                     <th class="text-center">Rating</th>
+                     <th class="text-center">Present Price</th>
+                     <th class="text-right"></th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   {% for c in comments %}
+                   <tr>
+                     <td class="thumb"><img src="{{c.Product.Image.url}}" alt=""></td>
+                     <td class="details">
+                       <a href="/product/{{c.Product_id}}/{{c.Product.Slug}} ">{{c.Product.Title}}</a>
+                       <ul>
+                         <li><span>Size: XL</span></li>
+                         <li><span>Color: Camelot</span></li>
+                       </ul>
+                     </td>
+                     <td class="price text-center"><strong>{{c.Comment}}</strong><br></td>
+                     <td class="price text-center"><strong>{{c.Rating}}</strong><br></td>
+                     <td class="price text-center"><strong>${{c.Product.Price}}</strong><br></td>
+                     <th class="text-center"><a href="/user/commentdelete/{{c.id}}" onclick="return confirm('Are you sure you want to delete this comment?');" class="primary-btn">Delete</a></th>
+                   </tr>
+                   {% endfor %}
+                 </tbody>
+
+               </table>
+            </div>
+         </div>
+      </div>
+      <!-- /row -->
+   </div>
+   <!-- /container -->
+</div>
+<!-- /section -->
+{% endblock %}
+{% block foot %} {% include 'footer.html' %} {% endblock %}

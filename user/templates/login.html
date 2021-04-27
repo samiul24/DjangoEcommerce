@@ -1,0 +1,51 @@
+{% extends 'homebase.html' %}
+{% block title %} {{ setting.Title }} {% endblock %}
+{% block description %} {{ setting.keywords }} {% endblock %}
+{% block keywords %} {{ setting.Description }} {% endblock %}
+
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+{% block body %}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="">Home</a></li>
+      <li class="active">Login</li>
+    </ul>
+  </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <h4 class="text-uppercase">Login Form</h4>
+      {% if loginerror %}
+      <div class=" alert alert-warning">
+        <p>Username or Password Wrong!</p>
+      </div>
+      {% endif %}
+      <form class="review-form" action="/user/login/" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <input name="username" class="input" type="text" placeholder="User Name" />
+        </div>
+        <div class="form-group">
+          <input name="password" class="input" type="password" placeholder="Password"></input>
+        </div>
+        <button class="primary-btn" type="submit">Login</button>
+      </form>
+
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /section -->
+
+ {% endblock %}
+{% block foot %} {% include 'footer.html' %} {% endblock %}

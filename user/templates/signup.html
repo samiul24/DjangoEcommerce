@@ -1,0 +1,54 @@
+{% extends 'homebase.html' %}
+{% load crispy_forms_tags %}
+{% block title %} {{ setting.Title }} {% endblock %}
+{% block description %} {{ setting.keywords }} {% endblock %}
+{% block keywords %} {{ setting.Description }} {% endblock %}
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+
+{% block css_block %}
+<style>
+  .sign_up{
+    width: 450px;
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+  .log_in{
+    width: 450px;
+    paddding: 20px;
+    border: 1px solid #ccc;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li class="active">Sign Up</li>
+    </ul>
+  </div>
+</div>
+<!-- /BREADCRUMB -->
+
+      <center>
+      <div class="sign_up">
+        <h3>Sign Up Form</h3>
+        <form action="/user/signup/" method="POST">
+          {{ form|crispy }}
+          {% csrf_token %}
+          <button type="submit" class="primary-btn" style='width:100%'>Sing up</button>
+        </form>
+      </div>
+      <br>
+      <div class="log_in">
+        <p>Have an account?<a href="#"> Login</a></p>
+      </div>
+      </center>
+      <br>
+
+
+ {% endblock %}
+{% block foot %} {% include 'footer.html' %} {% endblock %}
